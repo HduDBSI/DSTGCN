@@ -12,7 +12,7 @@ This is the repository of our paper "DSTGCN: Dynamic Spatial-Temporal Graph Conv
 * torch					1.2.0
 * tqdm					4.62.3
 
-## Baseline & How to run
+## Baselines & How to run
 |  baseline   |   |
 |  ----  | ----  |
 | HA  | python ARIMA/Arima_Main.py |
