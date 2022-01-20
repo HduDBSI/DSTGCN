@@ -13,13 +13,16 @@ This is the repository of our paper "DSTGCN: Dynamic Spatial-Temporal Graph Conv
 * tqdm					4.62.3
 
 ## Baseline & How to run
-* HA				python ARIMA/Arima_Main.py
-* ARIMA				python HA/HA_main.py
-* SVR				python SVR/SVR_main.py
-* LightGBM			python Lightgbm/Lightgbm_main.py
-* STGCN				python
-* ASTGCN			python
+|  baseline   |   |
+|  ----  | ----  |
+| HA  | python ARIMA/Arima_Main.py |
+| ARIMA  | python HA/HA_main.py |
+| SVR  | python SVR/SVR_main.py |
+| LightGBM  | python Lightgbm/Lightgbm_main.py |
+| STGCN  | python train_zhengzhou.py |
+| ASTGCN  | python train_zhengzhou.py |
 
+all results will be printed to console
 
 
 
