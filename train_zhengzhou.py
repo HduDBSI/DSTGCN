@@ -96,23 +96,23 @@ def main():
     device = torch.device(args.device)
     # sensor_ids, sensor_id_to_ind, adj_mx = util.load_adj(args.adjdata,args.adjtype)
     # 加载邻接矩阵
-    # adj_mx = util.pems_load_adj("./HGCN_data/PEMSD7(M)/hazdzz-w.csv")
+    # adj_mx = util.pems_load_adj("./data/PEMSD7(M)/hazdzz-w.csv")
     # 加载zhengzhou邻接矩阵(原始矩阵记录的是距离)
-    adj_mx = util.zhengzhou_load_adj("./HGCN_data/zhengzhou/W_716.csv")
+    adj_mx = util.zhengzhou_load_adj("./data/zhengzhou/W_716.csv")
 
     # PEMS 数据集, x_stats 包含了数据的均值与标准差
-    # dataloader, x_stats = util.pems_load_dataset(dataset_dir="./HGCN_data/PEMSD7(M)/V_228.csv",
+    # dataloader, x_stats = util.pems_load_dataset(dataset_dir="./data/PEMSD7(M)/V_228.csv",
     #                                              batch_size=args.batch_size, valid_batch_size=args.batch_size,
     #                                              test_batch_size=args.batch_size)
     # 郑州数据集
-    dataloader, x_stats = util.zhengzhou_load_dataset(dataset_dir="./HGCN_data/zhengzhou/V_716.csv",
+    dataloader, x_stats = util.zhengzhou_load_dataset(dataset_dir="./data/zhengzhou/V_716.csv",
                                                       n_route=args.num_nodes,
                                                       batch_size=args.batch_size,
                                                       valid_batch_size=args.batch_size,
                                                       test_batch_size=args.batch_size)
 
     # 预测可视化样例实验的数据
-    ex_dataloader, ex_x_stats = util.exp_dataloader(dataset_dir="./HGCN_data/zhengzhou/V_716.csv")
+    ex_dataloader, ex_x_stats = util.exp_dataloader(dataset_dir="./data/zhengzhou/V_716.csv")
 
     # 邻接矩阵放到显存上
     supports = [torch.tensor(adj_mx).cuda()]
@@ -341,14 +341,14 @@ def main_transiton():
     device = torch.device(args.device)
 
     # 加载zhengzhou邻接矩阵(原始矩阵记录的是距离)
-    adj_mx = util.zhengzhou_load_adj("./HGCN_data/zhengzhou/W_716.csv")
+    adj_mx = util.zhengzhou_load_adj("./data/zhengzhou/W_716.csv")
 
     # 加载邻接表, 邻接表记录了邻接关系
-    adj_list = load_adj_list("./HGCN_data/zhengzhou/small_adjacency_list.pickle")
+    adj_list = load_adj_list("./data/zhengzhou/small_adjacency_list.pickle")
 
     # 郑州数据集, 带转移流量
-    dataloader, x_stats = util.zhengzhou_load_dataset_transition(dataset_dir="./HGCN_data/zhengzhou/V_716.csv",
-                                                                 tpl_dir="./HGCN_data/zhengzhou/TPL.pickle",
+    dataloader, x_stats = util.zhengzhou_load_dataset_transition(dataset_dir="./data/zhengzhou/V_716.csv",
+                                                                 tpl_dir="./data/zhengzhou/TPL.pickle",
                                                                  n_route=args.num_nodes,
                                                                  batch_size=args.batch_size,
                                                                  valid_batch_size=args.batch_size,
@@ -358,8 +358,8 @@ def main_transiton():
     supports = [torch.tensor(adj_mx).cuda()]
 
     # 预测可视化样例实验的数据
-    ex_dataloader_transition = util.exp_dataloader_transition(dataset_dir="./HGCN_data/zhengzhou/V_716.csv",
-                                                               tpl_dir="./HGCN_data/zhengzhou/TPL.pickle")
+    ex_dataloader_transition = util.exp_dataloader_transition(dataset_dir="./data/zhengzhou/V_716.csv",
+                                                               tpl_dir="./data/zhengzhou/TPL.pickle")
 
     print(args)
     if args.model == 'gwnet':
@@ -647,7 +647,7 @@ def draw_weighted_adjacency_matrix():
     import matplotlib.pyplot as plt
     selected_roads_idx = [312, 405, 407, 417, 418, 419, 455, 563, 588, 667, 668, 669, 670, 671, 672]
     # 加载加权邻接矩阵
-    adj_mx = util.zhengzhou_load_adj("./HGCN_data/zhengzhou/W_716.csv")
+    adj_mx = util.zhengzhou_load_adj("./data/zhengzhou/W_716.csv")
     selected_adj_mx = adj_mx[selected_roads_idx]
     selected_adj_mx = selected_adj_mx[:, selected_roads_idx]
     d2l.show_heatmaps(torch.tensor(selected_adj_mx).reshape(1, 1, len(selected_roads_idx), len(selected_roads_idx)),
