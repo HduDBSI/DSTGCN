@@ -1,0 +1,2 @@
+# DSTGCN
+This is the repository of our paper DSTGCN: Dynamic Spatial-Temporal Graph Convolution Network for ElectricBicycle Flow Forecasting and it is implemented in Pytorch. Some baselines are also implemented in this repository.
