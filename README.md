@@ -3,16 +3,32 @@ This is the repository of our paper "DSTGCN: Dynamic Spatial-Temporal Graph Conv
 
 ## Requirements
 
-Package              Version
--------------------- -------------------
-matplotlib           3.3.3
-numpy                1.18.5
-pandas               1.2.2
-scikit-learn         1.0.1
-scipy                1.6.0
-sklearn              0.0
-statsmodels          0.13.0
-torch                1.2.0
-tqdm            	 4.62.3
+* matplotlib			3.3.3
+* numpy					1.18.5
+* pandas				1.2.2
+* scikit-learn			1.0.1
+* scipy					1.6.0
+* statsmodels			0.13.0
+* torch					1.2.0
+* tqdm					4.62.3
+
+## Baseline & How to run
+* HA				python ARIMA/Arima_Main.py
+* ARIMA				python HA/HA_main.py
+* SVR				python SVR/SVR_main.py
+* LightGBM			python Lightgbm/Lightgbm_main.py
+* STGCN				python
+* ASTGCN			python
+
+
+
+
+
+
+
+
+
+
+
 
 
