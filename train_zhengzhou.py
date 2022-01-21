@@ -94,16 +94,10 @@ def main():
     # np.random.seed(args.seed)
     # load data
     device = torch.device(args.device)
-    # sensor_ids, sensor_id_to_ind, adj_mx = util.load_adj(args.adjdata,args.adjtype)
-    # 加载邻接矩阵
-    # adj_mx = util.pems_load_adj("./data/PEMSD7(M)/hazdzz-w.csv")
+
     # 加载zhengzhou邻接矩阵(原始矩阵记录的是距离)
     adj_mx = util.zhengzhou_load_adj("./data/zhengzhou/W_716.csv")
 
-    # PEMS 数据集, x_stats 包含了数据的均值与标准差
-    # dataloader, x_stats = util.pems_load_dataset(dataset_dir="./data/PEMSD7(M)/V_228.csv",
-    #                                              batch_size=args.batch_size, valid_batch_size=args.batch_size,
-    #                                              test_batch_size=args.batch_size)
     # 郑州数据集
     dataloader, x_stats = util.zhengzhou_load_dataset(dataset_dir="./data/zhengzhou/V_716.csv",
                                                       n_route=args.num_nodes,
@@ -574,68 +568,6 @@ def main_transiton():
 
     return mtest_mae, mtest_rmse
 
-    # # testing
-    # bestid = np.argmin(his_loss)
-    # print("最佳模型位于", bestid+1, "epoch")
-    # engine.model.load_state_dict(torch.load(
-    #     params_path + "/" + args.model + "_epoch_" + str(bestid + 1) + "_" + str(round(his_loss[bestid], 2)) + ".pth"))
-    # engine.model.eval()
-    #
-    # outputs = []
-    # realy = torch.Tensor(dataloader['y_test']).to(device)
-    # realy = realy.transpose(1, 3)[:, 0, :, :]
-    #
-    # for iter, (x, y, tpl) in enumerate(dataloader['test_loader'].get_iterator()):
-    #     testx = torch.Tensor(x).to(device)
-    #     testx = testx.transpose(1, 3)
-    #     with torch.no_grad():
-    #         preds, spatial_at, parameter_adj = engine.model(testx, tpl)
-    #         # preds = preds.transpose(1, 3)
-    #     # outputs.append(preds.squeeze())
-    #     outputs.append(preds)
-    #
-    # yhat = torch.cat(outputs, dim=0)
-    # # yhat = yhat[:realy.size(0), ...]
-    #
-    # print("Training finished")
-    # print("The valid loss on best model is", str(round(his_loss[bestid], 4)))
-    #
-    # amae = []
-    # amape = []
-    # armse = []
-    # prediction = yhat
-    # '''预测长度为, PEMS设置为 3/6/9'''
-    # '''测试集上在不同步的最佳结果'''
-    # for i in range(1):
-    #     pred = prediction[:, :, i]
-    #     # 取整数个batch
-    #     num = realy.shape[0] // args.batch_size * args.batch_size
-    #     real = realy[:num, :, i]
-    #     metrics = util.pems_metric(pred, real, x_stats)
-    #     log = 'Evaluate best model on test data for horizon {:d}, Test MAE: {:.4f}, Test MAPE: {:.4f}, Test RMSE: {:.4f}'
-    #     print(log.format(i + 1, metrics[0], metrics[1], metrics[2]))
-    #     amae.append(metrics[0])
-    #     amape.append(metrics[1])
-    #     armse.append(metrics[2])
-    #
-    # log = 'On average over 12 horizons, Test MAE: {:.4f}, Test MAPE: {:.4f}, Test RMSE: {:.4f}'
-    # print(log.format(np.mean(amae), np.mean(amape), np.mean(armse)))
-    # torch.save(engine.model.state_dict(), params_path + "/" + args.model + "_exp" + str(args.expid) + "_best_" + str(
-    #     round(his_loss[bestid], 2)) + ".pth")
-    # prediction_path = params_path + "/" + args.model + "_prediction_results"
-    # ground_truth = realy.cpu().detach().numpy()
-    # prediction = prediction.cpu().detach().numpy()
-    # spatial_at = spatial_at.cpu().detach().numpy()
-    # parameter_adj = parameter_adj.cpu().detach().numpy()
-    # np.savez_compressed(
-    #     os.path.normpath(prediction_path),
-    #     prediction=prediction,
-    #     spatial_at=spatial_at,
-    #     parameter_adj=parameter_adj,
-    #     ground_truth=ground_truth
-    # )
-    #
-    # return np.mean(amae), np.mean(armse)
 
 
 """
@@ -664,6 +596,7 @@ if __name__ == "__main__":
     # t2 = time.time()
     # print("Total time spent: {:.4f}".format(t2 - t1))
 
+
     # 重复跑若干次
     mae_list = list()
     rmse_list = list()
@@ -675,11 +608,3 @@ if __name__ == "__main__":
         rmse_list.append(rmse)
 
     print("avg_MAE = %.2f, avg_RMSE = %.2f" % (sum(mae_list)/len(mae_list), sum(rmse_list)/len(rmse_list)))
-
-    # 在一次训练结束后清空一个目录 params_path + "/"
-    # import shutil
-
-    # shutil.rmtree(args.save + "/" + args.model + "/")  # 能删除该文件夹和文件夹下所有文件
-
-    # '''选择出来的15条道路的下标, 用于绘制静态加权邻接矩阵'''
-    # draw_weighted_adjacency_matrix()
