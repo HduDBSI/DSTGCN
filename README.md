@@ -1,5 +1,5 @@
 # DSTGCN
-This is the repository of our paper "DSTGCN: Dynamic Spatial-Temporal Graph Convolution Network for ElectricBicycle Flow Forecasting" and it is implemented in Pytorch. Some baselines are also implemented in this repository.
+This is the repository of our paper "Dynamic Attention And Trajectory Cognition Based Graph Convolution Network For Traffic Flow Forecasting" and it is implemented in Pytorch. Some baselines are also implemented in this repository.
 
 ## Requirements
 
